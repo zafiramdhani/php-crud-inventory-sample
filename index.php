@@ -7,18 +7,21 @@
   <link rel="stylesheet" type="text/css" href="https://www.jeasyui.com/easyui/themes/icon.css">
   <link rel="stylesheet" type="text/css" href="https://www.jeasyui.com/easyui/themes/color.css">
   <link rel="stylesheet" type="text/css" href="https://www.jeasyui.com/easyui/demo/demo.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
   <script type="text/javascript" src="https://www.jeasyui.com/easyui/jquery.min.js"></script>
   <script type="text/javascript" src="https://www.jeasyui.com/easyui/jquery.easyui.min.js"></script>
   <style>
+    body {font-family: 'Rubik', sans-serif;}
     .datagrid-header, #toolbar a {font-weight: bold;}
-    .datagrid-header {text-align: center;}
   </style>
 </head>
 <body>
   <h2>Basic CRUD Application</h2>
-  <p>Click the buttons on datagrid toolbar to do crud actions.</p>
+  <p>Click an item to edit or delete.</p>
   
-  <table id="dg" title="My Users" class="easyui-datagrid" style="width:100%;height:100%"
+  <table id="dg" title="INVENTORY" class="easyui-datagrid" style="width:100%;height:100%"
           url="getInventories.php"
           toolbar="#toolbar" pagination="true"
           rownumbers="true" fitColumns="true" singleSelect="true">
@@ -42,9 +45,9 @@
   </table>
   <div id="toolbar">
     <!-- <a href="databaseSeeder.php">Tambah Data</a> -->
-    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUser()">New User</a>
-    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">Edit User</a>
-    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyUser()">Remove User</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUser()">New Item</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">Edit Item</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyUser()">Delete Item</a>
   </div>
   
   <div id="dlg" class="easyui-dialog" style="width:400px" data-options="closed:true,modal:true,border:'thin',buttons:'#dlg-buttons'">
@@ -70,7 +73,7 @@
   </div>
 
   <script type="text/javascript">
-    let url;
+    var url;
     function newUser(){
       $('#dlg').dialog('open').dialog('center').dialog('setTitle','New User');
       $('#fm').form('clear');
@@ -78,7 +81,7 @@
     }
 
     function editUser(){
-      let row = $('#dg').datagrid('getSelected');
+      var row = $('#dg').datagrid('getSelected');
       if (row){
         $('#dlg').dialog('open').dialog('center').dialog('setTitle','Edit User');
         $('#fm').form('load',row);
@@ -94,7 +97,7 @@
           return $(this).form('validate');
         },
         success: function(result){
-          let result = eval('('+result+')');
+          var result = eval('('+result+')');
           if (result.errorMsg){
             $.messager.show({
               title: 'Error',
@@ -109,7 +112,7 @@
     }
 
     function destroyUser() {
-      let row = $('#dg').datagrid('getSelected');
+      var row = $('#dg').datagrid('getSelected');
       if (row){
         $.messager.confirm('Confirm','Are you sure you want to destroy this user?',function(r){
           if (r){
