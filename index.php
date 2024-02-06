@@ -21,7 +21,7 @@
   <h2>Basic CRUD Application</h2>
   <p>Click an item to edit or delete.</p>
   
-  <table id="dg" title="INVENTORY" class="easyui-datagrid" style="width:100%;height:100%"
+  <table id="dg" title="INVENTORY" class="easyui-datagrid" style="width:100%;height:70%"
           url="getInventories.php"
           toolbar="#toolbar" pagination="true"
           rownumbers="true" fitColumns="true" singleSelect="true">
@@ -52,32 +52,50 @@
   
   <div id="dlg" class="easyui-dialog" style="width:400px" data-options="closed:true,modal:true,border:'thin',buttons:'#dlg-buttons'">
     <form id="fm" method="post" novalidate style="margin:0;padding:20px 50px">
-      <h3>User Information</h3>
+      <h3>Item Information</h3>
       <div style="margin-bottom:10px">
-        <input name="firstname" class="easyui-textbox" required="true" label="First Name:" style="width:100%">
+        <input name="org" class="easyui-numberbox" required="true" data-options="min:1000,max:9999" label="Org:" style="width:100%">
       </div>
       <div style="margin-bottom:10px">
-        <input name="lastname" class="easyui-textbox" required="true" label="Last Name:" style="width:100%">
+        <input name="plant" class="easyui-textbox" required="true" label="Plant:" style="width:100%">
       </div>
       <div style="margin-bottom:10px">
-        <input name="phone" class="easyui-textbox" required="true" label="Phone:" style="width:100%">
+        <input name="sold_to" class="easyui-textbox" required="true" label="Sold To:" style="width:100%">
       </div>
       <div style="margin-bottom:10px">
-        <input name="email" class="easyui-textbox" required="true" validType="email" label="Email:" style="width:100%">
+        <input name="ship_to" class="easyui-textbox" required="true" label="Ship To:" style="width:100%">
+      </div>
+      <div style="margin-bottom:10px">
+        <input name="material" class="easyui-textbox" required="true" label="Material:" style="width:100%">
+      </div>
+      <div style="margin-bottom:10px">
+        <input name="distrik" class="easyui-textbox" required="true" label="Distrik:" style="width:100%">
+      </div>
+      <div style="margin-bottom:10px">
+        <input name="qty_minimum" class="easyui-numberbox" data-options="min:10,max:99" label="Qty Minimum:" style="width:100%">
+      </div>
+      <div style="margin-bottom:10px">
+        <input name="qty_bonus" class="easyui-numberbox" data-options="min:0,max:9" label="Qty Bonus:" style="width:100%">
+      </div>
+      <div style="margin-bottom:10px">
+        <input name="qty_status" class="easyui-textbox" required="true" label="Qty Status:" style="width:100%">
+      </div>
+      <div style="margin-bottom:10px">
+        <input name="created_by" class="easyui-textbox" required="true" label="Created By:" style="width:100%">
       </div>
     </form>
   </div>
   <div id="dlg-buttons">
-    <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="saveUser()" style="width:90px">Save</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="saveItem()" style="width:90px">Save</a>
     <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="javascript:$('#dlg').dialog('close')" style="width:90px">Cancel</a>
   </div>
 
   <script type="text/javascript">
     var url;
     function newUser(){
-      $('#dlg').dialog('open').dialog('center').dialog('setTitle','New User');
+      $('#dlg').dialog('open').dialog('center').dialog('setTitle','New Item');
       $('#fm').form('clear');
-      url = 'save_user.php';
+      url = 'addItem.php';
     }
 
     function editUser(){
@@ -89,7 +107,7 @@
       }
     }
 
-    function saveUser(){
+    function saveItem(){
       $('#fm').form('submit',{
         url: url,
         iframe: false,
