@@ -21,7 +21,7 @@
   <h2>Basic CRUD Application</h2>
   <p>Click an item to edit or delete.</p>
   
-  <table id="dg" title="INVENTORY" class="easyui-datagrid" style="width:100%;height:70%"
+  <table id="dg" title="INVENTORY" class="easyui-datagrid" style="width:100%;height:55%"
           url="getInventories.php"
           toolbar="#toolbar" pagination="true"
           rownumbers="true" fitColumns="true" singleSelect="true">
@@ -92,6 +92,11 @@
 
   <script type="text/javascript">
     var url;
+    $('#dg').datagrid({
+      pageSize: 20,
+      pageList: [20, 40, 60, 80, 100]
+    })
+
     function newUser(){
       $('#dlg').dialog('open').dialog('center').dialog('setTitle','New Item');
       $('#fm').form('clear');
