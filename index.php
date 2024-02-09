@@ -97,13 +97,13 @@
       $('#fm').form('clear');
       url = 'addItem.php';
     }
-
-    function editUser(){
+    
+    function editUser() {
       var row = $('#dg').datagrid('getSelected');
       if (row){
-        $('#dlg').dialog('open').dialog('center').dialog('setTitle','Edit User');
-        $('#fm').form('load',row);
-        url = 'update_user.php?id='+row.id;
+        $('#dlg').dialog('open').dialog('center').dialog('setTitle', 'Edit Item');
+        $('#fm').form('load', row);
+        url = 'editItem.php?id=' + row.id;
       }
     }
 
