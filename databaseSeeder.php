@@ -7,7 +7,7 @@ use Faker\Factory;
 
 $faker = Factory::create('id_ID');
 
-for ($i = 0; $i <= 20; $i++) { 
+for ($i = 1; $i <= 20; $i++) { 
   $org = $faker->numberBetween(1000, 9999);
   $plant = $faker->word();
   $sold_to = $faker->name();
