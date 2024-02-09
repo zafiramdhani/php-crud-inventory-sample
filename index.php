@@ -47,7 +47,7 @@
     <!-- <a href="databaseSeeder.php">Tambah Data</a> -->
     <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-add" plain="true" onclick="newUser()">New Item</a>
     <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-edit" plain="true" onclick="editUser()">Edit Item</a>
-    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="destroyUser()">Delete Item</a>
+    <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-remove" plain="true" onclick="deleteItem()">Delete Item</a>
   </div>
   
   <div id="dlg" class="easyui-dialog" style="width:400px" data-options="closed:true,modal:true,border:'thin',buttons:'#dlg-buttons'">
@@ -129,13 +129,13 @@
       });
     }
 
-    function destroyUser() {
+    function deleteItem() {
       var row = $('#dg').datagrid('getSelected');
-      if (row){
-        $.messager.confirm('Confirm','Are you sure you want to destroy this user?',function(r){
-          if (r){
-            $.post('destroy_user.php',{id:row.id},function(result){
-              if (result.success){
+      if (row) {
+        $.messager.confirm('Confirm', 'Are you sure you want to delete this item?', function(r) {
+          if (r) {
+            $.post('deleteItem.php', {id: row.id}, function(result) {
+              if (result.success) {
                 $('#dg').datagrid('reload');    // reload the user data
               } else {
                 $.messager.show({    // show error message
@@ -143,7 +143,7 @@
                   msg: result.errorMsg
                 });
               }
-            },'json');
+            }, 'json');
           }
         });
       }
