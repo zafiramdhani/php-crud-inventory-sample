@@ -14,7 +14,10 @@ $qty_status = $_POST['qty_status'];
 $created_by = $_POST['created_by'];
 
 $query = "INSERT INTO inventories (org, plant, sold_to, ship_to, material, distrik, qty_minimum, qty_bonus, qty_status, created_by) VALUES ('$org', '$plant', '$sold_to', '$ship_to', '$material', '$distrik', '$qty_minimum', '$qty_bonus', '$qty_status', '$created_by')";
-
 $result = mysqli_query($conn, $query);
 
-echo json_encode($result);
+if ($result) {
+  echo json_encode(array('successMsg' => 'Item added successfully!'));
+} else {
+  echo json_encode(array('errorMsg' => 'Error while adding item.'));
+}

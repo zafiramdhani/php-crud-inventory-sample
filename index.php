@@ -10,8 +10,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="utils/toastr.min.css">
   <script type="text/javascript" src="https://www.jeasyui.com/easyui/jquery.min.js"></script>
   <script type="text/javascript" src="https://www.jeasyui.com/easyui/jquery.easyui.min.js"></script>
+  <script src="utils/toastr.min.js"></script>
   <style>
     body {font-family: 'Rubik', sans-serif;}
     .datagrid-header, #toolbar a {font-weight: bold;}
@@ -92,6 +94,24 @@
 
   <script type="text/javascript">
     var url;
+    const toastrOptions = {
+      "closeButton": false,
+      "debug": false,
+      "newestOnTop": false,
+      "progressBar": true,
+      "positionClass": "toast-top-right",
+      "preventDuplicates": false,
+      "onclick": null,
+      "showDuration": "300",
+      "hideDuration": "1000",
+      "timeOut": "5000",
+      "extendedTimeOut": "1000",
+      "showEasing": "swing",
+      "hideEasing": "linear",
+      "showMethod": "fadeIn",
+      "hideMethod": "fadeOut"
+    }
+
     $('#dg').datagrid({
       pageSize: 20,
       pageList: [20, 40, 60, 80, 100]
@@ -122,13 +142,13 @@
         success: function(result){
           var result = eval('('+result+')');
           if (result.errorMsg){
-            $.messager.show({
-              title: 'Error',
-              msg: result.errorMsg
-            });
+            toastr.options = toastrOptions;
+            toastr["error"](result.errorMsg, "Error");
           } else {
-            $('#dlg').dialog('close');        // close the dialog
-            $('#dg').datagrid('reload');    // reload the user data
+            $('#dlg').dialog('close');        
+            $('#dg').datagrid('reload');
+            toastr.options = toastrOptions;
+            toastr["success"](result.successMsg, "Success");
           }
         }
       });
@@ -141,12 +161,12 @@
           if (r) {
             $.post('deleteItem.php', {id: row.id}, function(result) {
               if (result.success) {
-                $('#dg').datagrid('reload');    // reload the user data
+                $('#dg').datagrid('reload');
+                toastr.options = toastrOptions;
+                toastr["info"](result.successMsg, "Success");
               } else {
-                $.messager.show({    // show error message
-                  title: 'Error',
-                  msg: result.errorMsg
-                });
+                toastr.options = toastrOptions;
+                toastr["error"](result.errorMsg, "Error");
               }
             }, 'json');
           }

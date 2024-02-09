@@ -8,7 +8,7 @@ $query = "DELETE FROM inventories WHERE id = $id";
 $result = mysqli_query($conn, $query);
 
 if ($result) {
-  echo json_encode(array('success' => true));
+  echo json_encode(array('success' => true, 'successMsg' => 'Item deleted successfully!'));
 } else {
-  echo json_encode(array('errorMsg' => 'Error deleting item.'));
+  echo json_encode(array('errorMsg' => 'Error while deleting item.'));
 }
